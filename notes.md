@@ -2,7 +2,7 @@
 
 ## Subtasks
 - Annotate Data (csv format): Tam
-- Load model 
+- Load model : George
     - (https://huggingface.co/prithivMLmods/Human-Action-Recognition/tree/main)
     - try to make first predictions on sample images
 - Make a start on the pipeline
