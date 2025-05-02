@@ -1,0 +1,1 @@
+extract_frames.bat is a script that extracts 10 frames from each video's first 10 seconds of the dataset. To run it, ensure the video folder and the script file are in the same directory, and ffmpeg is installed.
