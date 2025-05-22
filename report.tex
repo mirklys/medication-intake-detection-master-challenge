@@ -1,3 +1,40 @@
+
+%  overview of grading criteria:
+%  -----------------------------
+%  Structure and readability
+%  The structure is clear and easy to follow. Language is clear and precise. 
+%  All the key concepts are well introduced. There is a good balance between 
+%  comprehension and concision.
+
+%  Executive summary
+%  Is informative and covers all the key points of the report thoroughly. It 
+%  is standalone and provides a clear picture of the report. Is concise and 
+%  to the point. Is engaging and strongly motivates the reader to read the whole 
+%  report.
+
+%  Introduction
+%  Clear and complete identification of project goals and objectives. The project 
+%  and its objectives are well motivated and the background is described clearly. 
+%  The length and level of required details are very well balanced.
+
+%  Body
+%  Content is comprehensive, accurate, and persuasive. Major points are stated 
+%  clearly and are well supported.
+
+%  Evaluation
+%  An extensive and clear evaluation of the outcomes of the project with respect 
+%  to the project goals and objectives and also compared to previous existing 
+%  solutions/systems. The strengths and weaknesses of the outcome and progress 
+%  are critically and deeply analyzed
+
+%  Conclusion and suggestions
+%  Conclusions are brief, clean-cut and specific, and relate specifically to the 
+%  objectives of the project as set out in the introduction. The conclusions follow 
+%  logically from the outcomes of the projects. Suggestions are logically connected 
+%  to the conclusions, they are action-oriented, feasible, and presented in order of 
+%  importance.
+ 
+
 \documentclass[a4paper,12pt]{article}
 
 % Packages
@@ -13,24 +50,49 @@
 \geometry{margin=1in}
 
 % Title and Author
-\title{Simple Report Template}
-\author{Your Name}
-\date{\today}
-
+\title{MedAssist: An Automated Solution for The Assessment of Medication Intake}
+\author{Adem Kaya, George Lalidis, Giedrius Mirklys, Tam Van}
+\date{21-06-2025}
 \begin{document}
 
 % Title Page
 \maketitle
 
-\begin{abstract}
-This is a short abstract summarizing the report content. It typically includes a brief description of the purpose, methods, and findings.
-\end{abstract}
-
 \section{Introduction}
-This is the introduction. You can write a few paragraphs here to introduce your topic.
+For the course AI in the Professional Workfield (SOW-MKI76), we were challenged 
+to develop a project for a company in a selection of companies provided on the 
+Masters Challenge platform. Given our shared background and passion for societal 
+impact and healthcare, we ended up with a company called MedAssist.
+
+\subsection{MedAssist}
+MedAssist is a company that is concerned with building medication dispensary devices. 
+Not only do their devices feature automatic release of medication, such that it 
+capable of helping its patients to take their medication on time, but the devices
+also feature a build in camera that is capable of recoding videos of the patients 
+whenever they are exactly in front of the device. 
+
+\subsection{The Problem}
+As of now the video material that is collected by the deviced is manually reviewed by
+humans to check whether the patient in question has sucessfully taken their medication. 
+The problem lays in the time consuming nature of this process. In order to provide 
+a solution to this time consuming approach, MedAssist has reached out to us to 
+build an AI which is capable of automatically assessing whether the patient has taken
+their medication or not.
+
+\subsection{The Goal}
+In order to provide a solution to the problem, the goal is to build an AI which 
+is capable of automatically assessing whether the patient has taken their medication
+or not to its best extent. Not only should we aim to maximize the accuracy of the
+AI, but we should also carefully aim to minimize the amount of false positives as
+we do not want the AI to make it seem like the patient has taken their medication 
+even though they have not.
 
 \section{Methods}
-Describe the methods or approaches used in your work.
+
+\subsection{Provided Data}
+\subsection{Human Activity Detection (HAD)}
+\subsection{Finetuning}
+
 
 \section{Results}
 Here is how you include an image (make sure the image is in the same directory or provide the path):
@@ -62,8 +124,8 @@ You can include tables like this:
 \section{Conclusion}
 Summarize the results and discuss the implications of your findings.
 
+\section{Discussion and Recommendations}
+
 \section*{References}
-\bibliographystyle{plainnat}
-%\bibliography{references} % Assumes you have a references.bib file
 
 \end{document}
