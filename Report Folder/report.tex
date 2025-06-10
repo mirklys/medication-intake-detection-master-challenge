@@ -89,10 +89,12 @@ even though they have not.
 
 \section{Methods}
 
-\subsection{Provided Data}
+\subsection{Data Labelling and Processing}
+MedAssist had a collection of videos filmed using their medication tracking device. There were 86 videos in total where 71 videos displayed a person taking a pill or similar. It must be noted that 20 of them were difficult to decipher whether the medication was taken in or not, yet the ones that resembled an eating action or putting an item near the mouth closer were still labelled as positive instances of medication intake. 
+
+Moreover, the videos were approximately 30 s long, and their frame rate was around 60 frames per second. This leads to approximately 1800 frames per video. Due to limited computational resources, we lowered the frame count by extracting 10 frames at uniformly spaced intervals across the video's duration. These frames were saved as a NumPy zipped array, and each frame was preprocessed during training and testing using the HAR model from Hugging Face\footnote{\url{https://huggingface.co/Adekiii/HAR-medication-finetuned_v2/tree/main}}.
 \subsection{Human Activity Detection (HAD)}
 \subsection{Finetuning}
-
 
 \section{Results}
 Here is how you include an image (make sure the image is in the same directory or provide the path):
