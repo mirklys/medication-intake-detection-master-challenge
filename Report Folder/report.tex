@@ -88,21 +88,91 @@ we do not want the AI to make it seem like the patient has taken their medicatio
 even though they have not.
 
 \section{Methods}
+\subsection{Dataet}
+The dataset that was provided to us by MedAssist, initially consisted of 85 unlabeled videos
+taken by the medication dispensary devices. We were told beforehand that there were not
+privacy concerns applicablel to the dataset, and that we were allowed to use it freely. 
+The videos had small variations in lenghts, subjects, surroundings; but did include a 
+large variety of different lightning conditions. Each of the 85 videos was watched 
+and manually annotated whether the subject took their medication or not. Of these 85 videos,
+a total 71 cases where found to contain content of the subject taking their medication.
 
-\subsection{Provided Data}
+A few weeks before the end of the project, another suplementary dataset was provided to us.
+This dataset consisted of another 29 videos, of which 23 were cases in which the subject
+was taking their medication. Again, the previous mentioned variations are applicable to 
+this part of the dataset as well, with the addition of a slight increase in subject variation.
+
+Combining these two datasets, we ended up with a total of 114 videos with a class imbalance
+of 82\%. From this combined dataset we split up the data into a training-, test- and validation 
+set, using a split of 70\%, 20\% and 10\% respectively.
+
 \subsection{Human Activity Detection (HAD)}
-\subsection{Finetuning}
+Human activity detection (HAD) is a subfield of machine learning that focuses on recognizing
+and classifying human activities from different possible data modalities. For this specefic
+task, we are interested in the application of HAD based on video data. HAD models often make
+use of a list of different possible activities, which they are trained on to recognize and
+classify. In our case, we can break this down into two classes: 
 
+\renewcommand{\labelenumi}{\Roman{enumi}.}
+\begin{enumerate}
+    \item The subject has taken their medication at some point in the video.
+    \item The subject has \textbf{not} taken their medication at any point in the video.
+\end{enumerate}
 
-\section{Results}
-Here is how you include an image (make sure the image is in the same directory or provide the path):
+\subsubsection{SligLIP 2}
+Because the datset that we were provided was substanstially smaller than desired to train
+a well performing HAD model from scratch. We made use of a pre-trained model based on the SligLIP 2 
+transformer architecture [cite]. The implemnentation of this model was made publically available and
+retrieved through the HuggingFace model hub [cite]. The pre-trained model was build and 
+made available by Prithiv Sakthi, and reported great performance in detecting and classifying
+a total of 15 different human activities for still images. 
+
+Even though the model was not directly trained on the task of medication intake assessment,
+\textit{drinking} as well as \textit{eating} which we considered to be especially useful for our task. 
+In specific these two activities had F1 scores of 0.89 and 0.93 respectively. For a full summary of the 
+model's performance ono the 15 different activities we refer to the confusion matrix in Figure 
+\ref{fig:HAD-cm}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{example-image} % Replace with your image file
-    \caption{Sample Image}
-    \label{fig:sample-image}
+    \includegraphics[width=0.5\textwidth]{./images/conf matrix had.png} % Replace with your image file
+    \caption{SligLIP 2 Confusion Matrix for Activity Classification}
+    \label{fig:HAD-cm}
 \end{figure}
+
+% DO WE WANT THIS TO BE SUB- OR SUBSUB SECTION ????????????????????????????
+\subsubsection{Finetuning}
+Because the pre-trained model was not directly trained for the task of medication 
+we needed to finetune the model. In order to do so, we manually annotated individual 
+frames of the videos in our training set. We annotated a total of X frames, of which
+Y were cases where the subject was taking their medicaiton, and Z were cases where
+the subject was not taking their medication. This resulted ina class imbalance of 
+XY\% which we found to suffice for the task of finetuning. 
+
+% NOT SURE IF WE SPLIT DATA INTO TEST AND TRAIN, IF WE DID REPORT SPLIT HERE?
+The task of finetuning improved the model's test performance on the task of medication intake from
+an F1 score of 0.53 to 0.75, suggesting a succesful finetuning process. 
+
+
+
+
+\subsection{Working with Videos}
+Because the fine-tuned model was trained to classify individual frames, rather than
+entire videos, we needed to find a way to efficiently process videos recorded by the
+devices. In order to do so, we extracted a total of 10 freames, evenly spaced out over the
+length of the video. This way we were able to process the entire video, while only
+processing a small fraction of the frames. Assuming that in at least one of these frames
+the subject would be taking their medication, for the videos that were annotated as such, 
+this limited amount of frames is desirable to drive back computational costs. 
+
+\section{Results}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{./images/test confusion matrix.png} % Replace with your image file
+    \caption{SligLIP 2 Confusion Matrix for Activity Classification}
+    \label{fig:test-cm}
+\end{figure}
+
 
 \section{Tables}
 You can include tables like this:
