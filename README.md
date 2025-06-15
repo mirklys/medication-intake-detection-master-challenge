@@ -6,3 +6,6 @@ Annotations for each of the 10 frames per video. Labeled with either "taking_med
 
 ## finetune.ipynb
 Notebook in which the fine-tuning process is done. 
+
+## inference.ipynb
+Notebook in which inference is demonstrated by loading the fine-tuned model from the HuggingFace repository and ran with some sample images.
