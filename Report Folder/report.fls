@@ -1,9 +1,9 @@
-PWD /home/bobby/repos/medication-intake-detection-master-challenge/Report Folder
+PWD /home/giedriusmirklys/medication-intake-detection-master-challenge/Report Folder
 INPUT /etc/texmf/web2c/texmf.cnf
 INPUT /usr/share/texmf/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/bobby/repos/medication-intake-detection-master-challenge/Report Folder/report.tex
+INPUT /home/giedriusmirklys/medication-intake-detection-master-challenge/Report Folder/report.tex
 OUTPUT report.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -174,12 +174,18 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.tex
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.tex
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.pdf
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.pdf
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.pdf
-INPUT /usr/share/texlive/texmf-dist/tex/latex/mwe/example-image.pdf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
+INPUT ./images/conf matrix had.png
+INPUT ./images/conf matrix had.png
+INPUT ./images/conf matrix had.png
+INPUT ./images/conf matrix had.png
+INPUT ./images/conf matrix had.png
+INPUT ./images/test confusion matrix.png
+INPUT ./images/test confusion matrix.png
+INPUT ./images/test confusion matrix.png
+INPUT ./images/test confusion matrix.png
+INPUT ./images/test confusion matrix.png
 INPUT report.aux
 INPUT ./report.out
 INPUT ./report.out
@@ -188,5 +194,5 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb
-INPUT /usr/share/texmf/fonts/type1/public/lm/lmss17.pfb
