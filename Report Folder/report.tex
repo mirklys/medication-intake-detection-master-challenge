@@ -32,8 +32,7 @@
 %  objectives of the project as set out in the introduction. The conclusions follow 
 %  logically from the outcomes of the projects. Suggestions are logically connected 
 %  to the conclusions, they are action-oriented, feasible, and presented in order of 
-%  importance.
- 
+%  importance
 
 \documentclass[a4paper,12pt]{article}
 
@@ -59,113 +58,60 @@
 \maketitle
 
 \section{Introduction}
-For the course AI in the Professional Workfield (SOW-MKI76), we were challenged 
-to develop a project for a company in a selection of companies provided on the 
-Masters Challenge platform. Given our shared background and passion for societal 
-impact and healthcare, we ended up with a company called MedAssist.
+Within the scope of the AI in the Professional Workfield course (SOW-MKI76), the task was to develop a project for a company selected from the Masters Challenge platform. Based on a collective interest in societal impact and healthcare, MedAssist was chosen as the focus of this project.
 
 \subsection{MedAssist}
-MedAssist is a company that is concerned with building medication dispensary devices. 
-Not only do their devices feature automatic release of medication, such that it 
-capable of helping its patients to take their medication on time, but the devices
-also feature a build in camera that is capable of recoding videos of the patients 
-whenever they are exactly in front of the device. 
+MedAssist specializes in the development of medication dispensary devices. These devices incorporate automatic medication release to assist patients in adhering to their prescribed schedules. Additionally, they are equipped with integrated cameras capable of recording videos of patients positioned directly in front of the device.
 
 \subsection{The Problem}
-As of now the video material that is collected by the deviced is manually reviewed by
-humans to check whether the patient in question has sucessfully taken their medication. 
-The problem lays in the time consuming nature of this process. In order to provide 
-a solution to this time consuming approach, MedAssist has reached out to us to 
-build an AI which is capable of automatically assessing whether the patient has taken
-their medication or not.
+Currently, the video data acquired by these devices undergoes manual review to ascertain whether patients have successfully taken their medication. The primary challenge lies in the time-intensive nature of this manual process. To address this, MedAssist seeks an automated solution, specifically an AI system capable of accurately assessing medication intake.
 
 \subsection{The Goal}
-In order to provide a solution to the problem, the goal is to build an AI which 
-is capable of automatically assessing whether the patient has taken their medication
-or not to its best extent. Not only should we aim to maximize the accuracy of the
-AI, but we should also carefully aim to minimize the amount of false positives as
-we do not want the AI to make it seem like the patient has taken their medication 
-even though they have not.
+The objective is to develop an AI system that can automatically assess medication adherence with high accuracy. Emphasis will be placed not only on maximizing overall accuracy but also on minimizing false positive predictions, where the AI incorrectly indicates medication intake, which is particularly critical in healthcare settings.
 
 \section{Methods}
-\subsection{Dataet}
-The dataset that was provided to us by MedAssist, initially consisted of 85 unlabeled videos
-taken by the medication dispensary devices. We were told beforehand that there were not
-privacy concerns applicablel to the dataset, and that we were allowed to use it freely. 
-The videos had small variations in lenghts, subjects, surroundings; but did include a 
-large variety of different lightning conditions. Each of the 85 videos was watched 
-and manually annotated whether the subject took their medication or not. Of these 85 videos,
-a total 71 cases where found to contain content of the subject taking their medication.
+\subsection{Data Labelling and Processing}
 
-A few weeks before the end of the project, another suplementary dataset was provided to us.
-This dataset consisted of another 29 videos, of which 23 were cases in which the subject
-was taking their medication. Again, the previous mentioned variations are applicable to 
-this part of the dataset as well, with the addition of a slight increase in subject variation.
+MedAssist provided a collection of videos filmed using their medication tracking devices. The initial dataset consisted of 85 unlabeled videos, exhibiting variations in length, subjects, surroundings, and lighting conditions. Following manual annotation, 71 videos were identified as depicting medication intake. It is important to note that 20 videos presented challenges in determining medication intake; however, actions resembling eating or bringing an item close to the mouth were conservatively labeled as positive instances.
 
-Combining these two datasets, we ended up with a total of 114 videos with a class imbalance
-of 82\%. From this combined dataset we split up the data into a training-, test- and validation 
-set, using a split of 70\%, 20\% and 10\% respectively.
+A supplementary dataset of 29 videos (23 positive instances) was subsequently provided, featuring increased subject variation. The combined dataset comprised 114 videos with an 82\% class imbalance. This dataset was partitioned into training (70\%), testing (20\%), and validation (10\%) sets. Each video, approximately 30 seconds in duration with a frame rate of 60 fps (approximately 1800 frames), was processed by extracting 10 frames at uniform intervals due to computational constraints. These frames were stored as a NumPy zipped array and preprocessed using the HAR model from Hugging Face\footnote{\url{https://huggingface.co/Adekiii/HAR-medication-finetuned_v2/tree/main}} during both training and testing.
+
 
 \subsection{Human Activity Detection (HAD)}
-Human activity detection (HAD) is a subfield of machine learning that focuses on recognizing
-and classifying human activities from different possible data modalities. For this specefic
-task, we are interested in the application of HAD based on video data. HAD models often make
-use of a list of different possible activities, which they are trained on to recognize and
-classify. In our case, we can break this down into two classes: 
-
+Human activity detection (HAD) is a pretrained transformer that focuses on recognizing
+and classifying human activities from different possible data modalities. This model could detect multiple activities in a single frame, making it suitable for the task of medication intake assessment. The model was trained on a diverse dataset of human activities, enabling it to generalize well across various scenarios. For this project, the model was fine-tuned to specifically recognize medication intake activities: 
 \renewcommand{\labelenumi}{\Roman{enumi}.}
 \begin{enumerate}
-    \item The subject has taken their medication at some point in the video.
-    \item The subject has \textbf{not} taken their medication at any point in the video.
+    \item Medication intake: The subject has taken their medication at some point in the video.
+    \item No medication intake: The subject has \textbf{not} taken their medication at any point in the video.
 \end{enumerate}
 
 \subsubsection{SligLIP 2}
-Because the datset that we were provided was substanstially smaller than desired to train
-a well performing HAD model from scratch. We made use of a pre-trained model based on the SligLIP 2 
-transformer architecture [cite]. The implemnentation of this model was made publically available and
-retrieved through the HuggingFace model hub [cite]. The pre-trained model was build and 
-made available by Prithiv Sakthi, and reported great performance in detecting and classifying
-a total of 15 different human activities for still images. 
+Due to the dataset's limited size, a pre-trained model based on the SligLIP 2
+transformer architecture was utilized instead of training a HAD model from scratch.
+The implementation of this model, made publicly available and accessible through the
+HuggingFace model hub by Prithiv Sakthi, has demonstrated strong performance
+in detecting and classifying 15 distinct human activities in still images.
 
-Even though the model was not directly trained on the task of medication intake assessment,
-\textit{drinking} as well as \textit{eating} which we considered to be especially useful for our task. 
-In specific these two activities had F1 scores of 0.89 and 0.93 respectively. For a full summary of the 
-model's performance ono the 15 different activities we refer to the confusion matrix in Figure 
+Although the model was not explicitly trained for medication intake assessment, its
+capabilities in recognizing \textit{drinking} and \textit{eating} activities were
+deemed particularly relevant, with F1 scores of 0.89 and 0.93, respectively. For a
+comprehensive overview of the model's performance across all 15 activities, refer to
+the confusion matrix presented in Figure
 \ref{fig:HAD-cm}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{./images/conf matrix had.png} % Replace with your image file
+    \includegraphics[width=0.5\textwidth]{./images/conf matrix had.png} 
     \caption{SligLIP 2 Confusion Matrix for Activity Classification}
     \label{fig:HAD-cm}
 \end{figure}
 
 % DO WE WANT THIS TO BE SUB- OR SUBSUB SECTION ????????????????????????????
-\subsubsection{Finetuning}
-Because the pre-trained model was not directly trained for the task of medication 
-we needed to finetune the model. In order to do so, we manually annotated individual 
-frames of the videos in our training set. We annotated a total of X frames, of which
-Y were cases where the subject was taking their medicaiton, and Z were cases where
-the subject was not taking their medication. This resulted ina class imbalance of 
-XY\% which we found to suffice for the task of finetuning. 
-
-% NOT SURE IF WE SPLIT DATA INTO TEST AND TRAIN, IF WE DID REPORT SPLIT HERE?
-The task of finetuning improved the model's test performance on the task of medication intake from
-an F1 score of 0.53 to 0.75, suggesting a succesful finetuning process. 
-
-
-
-
-\subsection{Working with Videos}
-Because the fine-tuned model was trained to classify individual frames, rather than
-entire videos, we needed to find a way to efficiently process videos recorded by the
-devices. In order to do so, we extracted a total of 10 frames, evenly spaced out over the
-entire length of any video. By the application of this approach, we were able to 
-process any video while only processing a small fraction of the frames. 
-This way we were able to process the entire video, while onlyprocessing a small 
-fraction of the frames. Assuming that in at least one of these frames the subject 
-would be taking their medication, for the videos that were annotated as such, 
-this limited amount of frames is desirable since it hugely drives back computational costs. 
+\subsubsection{Fine-tuning}
+Since the pre-trained model was not specifically trained for medication intake, fine-tuning was performed. This 
+involved manual annotation of individual frames within the training set video. In total, 850 frames  were manually
+annotated. Of these 850  frames, approximately 19\% was labeled as positive cases of medication intake.
 
 
 \section{Results}
@@ -177,10 +123,34 @@ this limited amount of frames is desirable since it hugely drives back computati
 \end{figure}
 
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c||c|c|c|c|}
+        \hline
+        Epoch & Accuracy & Precision & Recall & F1 \\
+        \hline
+        1 & 0.16 & 0.00 & 0.00 & 0.00 \\
+        2 & 0.83 & 0.83 & 1.00 & 0.91 \\
+        3 & 0.83 & 0.83 & 1.00 & 0.91 \\
+        \hline
+    \end{tabular}
+    \caption{Validation results per epoch}
+    \label{tab:val-results}
+\end{table}
+
+
+These results show how the model achieves a high F1 score, indicating a good balance between precision and recall. 
+
+\section{Discussion}
+Even though the model achieved a high F1 score, we should be wary interpreting these results. Figure \ref{fig:test-cm} shows
+how the model has predicted medication intake for each of the videos in the test set. Due to the class imbalance, this 
+still results in high performance metrics, even though the model may have not learned to distinguish between the two classes,
+but rather learned to predict the class imbalance in the dataset. 
+
 \section{Conclusion}
+Summarize the results and discuss the implications of your findings.
 
 \section{Discussion and Recommendations}
-\subsection{Data Suggestions}
 
 \section*{References}
 
