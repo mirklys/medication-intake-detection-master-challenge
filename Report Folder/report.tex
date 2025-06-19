@@ -159,11 +159,14 @@ an F1 score of 0.53 to 0.75, suggesting a succesful finetuning process.
 \subsection{Working with Videos}
 Because the fine-tuned model was trained to classify individual frames, rather than
 entire videos, we needed to find a way to efficiently process videos recorded by the
-devices. In order to do so, we extracted a total of 10 freames, evenly spaced out over the
-length of the video. This way we were able to process the entire video, while only
-processing a small fraction of the frames. Assuming that in at least one of these frames
-the subject would be taking their medication, for the videos that were annotated as such, 
-this limited amount of frames is desirable to drive back computational costs. 
+devices. In order to do so, we extracted a total of 10 frames, evenly spaced out over the
+entire length of any video. By the application of this approach, we were able to 
+process any video while only processing a small fraction of the frames. 
+This way we were able to process the entire video, while onlyprocessing a small 
+fraction of the frames. Assuming that in at least one of these frames the subject 
+would be taking their medication, for the videos that were annotated as such, 
+this limited amount of frames is desirable since it hugely drives back computational costs. 
+
 
 \section{Results}
 \begin{figure}[H]
@@ -174,27 +177,10 @@ this limited amount of frames is desirable to drive back computational costs.
 \end{figure}
 
 
-\section{Tables}
-You can include tables like this:
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|c|c|c|}
-        \hline
-        Column 1 & Column 2 & Column 3 \\
-        \hline
-        A & B & C \\
-        1 & 2 & 3 \\
-        \hline
-    \end{tabular}
-    \caption{Sample Table}
-    \label{tab:sample-table}
-\end{table}
-
 \section{Conclusion}
-Summarize the results and discuss the implications of your findings.
 
 \section{Discussion and Recommendations}
+\subsection{Data Suggestions}
 
 \section*{References}
 
