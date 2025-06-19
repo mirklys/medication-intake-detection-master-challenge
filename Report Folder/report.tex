@@ -74,17 +74,8 @@ The objective is to develop an AI system that can automatically assess medicatio
 
 MedAssist provided a collection of videos filmed using their medication tracking devices. The initial dataset consisted of 85 unlabeled videos, exhibiting variations in length, subjects, surroundings, and lighting conditions. Following manual annotation, 71 videos were identified as depicting medication intake. It is important to note that 20 videos presented challenges in determining medication intake; however, actions resembling eating or bringing an item close to the mouth were conservatively labeled as positive instances.
 
-A supplementary dataset of 29 videos (23 positive instances) was subsequently provided, featuring increased subject variation. The combined dataset comprised 114 videos with an 82\% class imbalance. This dataset was partitioned into training (70\%), testing (20\%), and validation (10\%) sets.
+A supplementary dataset of 29 videos (23 positive instances) was subsequently provided, featuring increased subject variation. The combined dataset comprised 114 videos with an 82\% class imbalance. This dataset was partitioned into training (70\%), testing (20\%), and validation (10\%) sets. Each video, approximately 30 seconds in duration with a frame rate of 60 fps (approximately 1800 frames), was processed by extracting 10 frames at uniform intervals due to computational constraints. These frames were stored as a NumPy zipped array and preprocessed using the HAR model from Hugging Face\footnote{\url{https://huggingface.co/Adekiii/HAR-medication-finetuned_v2/tree/main}} during both training and testing.
 
-Each video, approximately 30 seconds in duration with a frame rate of 60 fps (approximately 1800 frames), was processed by extracting 10 frames at uniform intervals due to computational constraints. These frames were stored as a NumPy zipped array and preprocessed using the HAR model from Hugging Face\footnote{\url{https://huggingface.co/Adekiii/HAR-medication-finetuned_v2/tree/main}} during both training and testing.
-
-Given that the fine-tuned model classifies individual frames rather than entire
-videos, a method for efficient video processing was required. To achieve this, 10
-frames were extracted from each video at uniform intervals, enabling processing of
-the entire video while analyzing only a subset of frames. This approach assumes
-that for videos annotated with medication intake, at least one extracted frame
-will capture the action, allowing the model to identify the activity while minimizing
-computational cost.
 
 \subsection{Human Activity Detection (HAD)}
 Human activity detection (HAD) is a pretrained transformer that focuses on recognizing
