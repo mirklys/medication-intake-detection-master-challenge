@@ -142,15 +142,42 @@ annotated. Of these 850  frames, approximately 19\% was labeled as positive case
 These results show how the model achieves a high F1 score, indicating a good balance between precision and recall. 
 
 \section{Discussion}
-Even though the model achieved a high F1 score, we should be wary interpreting these results. Figure \ref{fig:test-cm} shows
-how the model has predicted medication intake for each of the videos in the test set. Due to the class imbalance, this 
-still results in high performance metrics, even though the model may have not learned to distinguish between the two classes,
-but rather learned to predict the class imbalance in the dataset. 
+The model's ability to identify all cases involving medication intake might suggest that its performance is more than ideal. 
+However, the fact that model always predicts the positive class would raise reasonable doubts about its true effectiveness. 
+This is evidenced by the fact that all evaluation metrics involved--except recall which remains stable at 1.0 regardless the
+ class distribution--depend solely on the number of cases in test set where medication was taken. Therefore, if the test set 
+ contains fewer cases of medication intake, these metrics would decrease accordingly. That said, although F1-score may appear high, 
+ it is not truly representative of the model's performance, as it also depends on the number of positive cases.
+
+This unpredictable performance, along with the unexpected results, could stem from several factors. A large and diverse
+ dataset is always essential for deep learning tasks, and this is especially critical in the healthcare domain. Including 
+ samples from the same subjects is legitimate in this context, as it reflects real-world scenarios where patients may have 
+ multiple medication events over time. However, given the small dataset size, this practice may contribute to suboptimal 
+ performance, leading to bias toward always detecting medication intake. Additionally, class imbalance--specifically, the 
+ oversampling of the positive class relative to the negative--must be considered as a potential contributing factor. Based 
+ on the provided labeling criteria, videos containing any motion toward the subject's mouth were to be classified as 
+ positive--a pattern the model successfully learned--even in cases where no actual medication was taken. 
+
+The pretrained model may also not be well-suited for this specific task. While it has successfully learned to recognize 
+activities involving motion--particularly gesture toward the mouth--the specific task involves more nuanced actions. For 
+example, the model cannot determine whether the patient actually swallowed the pill or whether the pill was present at all. 
+As a result, any motion toward the mouth might be interpreted as medication intake, showcasing the model's limited ability 
+to generalize effectively to the specific requirements of the task. Last but not least, the pretrained model used is 
+computationally heavy, making it unsuitable for deployment on the dispenser. This indicates that an alternative approach 
+should be considered--specifically, the implementation of a more lightweighted model.
 
 \section{Conclusion}
-Summarize the results and discuss the implications of your findings.
-
-\section{Discussion and Recommendations}
+The goal of this project was to develop an AI model that could be embedded in a dispenser equipped with a camera to detect 
+whether patients have taken their medication. A pretrained model was employed, originally trained on images depicting 
+various activities, such as eating, walking, and smiling. Since the model was designed for image classification rather 
+than video analysis, 10 frames were extracted from each video to adapt it to the task. The model effectively captured 
+motion-related features, which justified its selection and integration into the system. It was subsequently finetuned 
+for the specific task of medication intake detection. However, the results were not as promising as expected, and several 
+factors may explain this outcome. The dataset was neither large nor diverse, containing limited samples, many of which 
+involved similar individuals. This limitation introduced class imbalance, causing the model to become biased toward the 
+positive class, likely contributing to its tendency to classify every sample as positive case. Finally, the pretrained 
+model may ultimately not be ideal for this task, suggesting that a different approach should be considered--especially 
+given that such a computationally heavy model cannot be embedded in the dispenser.
 
 \section*{References}
 
