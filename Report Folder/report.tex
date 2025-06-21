@@ -57,6 +57,14 @@
 % Title Page
 \maketitle
 
+\section{Executive Summary}
+
+Tracking medication intake is an indispensable practice in healthcare and elderly care institutions, ensuring that residents receive correct and timely treatment. MedAssist, a company developing smart medication dispensers, currently faces the challenge of automating the assessment of medication intake, which this project addresses.
+
+To meet this challenge, a Human Activity Detection model, capable of recognizing related activities such as eating and drinking, was fine-tuned to determine if a patient has taken their medication from videos recorded by the dispenser. The model's performance appeared high, with a final F1-score of 0.91. However, this result was misleading, as the model exclusively predicted positive cases. This predictive bias was likely caused by the small dataset size and a considerable class imbalance.
+
+Finally, the selected model requires large computational resources, making local deployment on the dispenser unfeasible. While it is suggested that future work explores models optimized for edge devices, the general methodology presented in this report could certainly be adapted to train a smaller, more suitable model for this purpose.
+
 \section{Introduction}
 Within the scope of the AI in the Professional Workfield course (SOW-MKI76), the task was to develop a project for a 
 company selected from the Masters Challenge platform. Based on a collective interest in societal impact and healthcare, 
@@ -156,7 +164,9 @@ annotated. Of these 850  frames, approximately 19\% was labeled as positive case
 \end{table}
 
 
-These results show how the model achieves a high F1 score, indicating a good balance between precision and recall. 
+The validation results after three epochs of fine-tuning are presented in Table \ref{tab:val-results}. The model's performance stabilized after the second epoch, achieving a final F1-score of 0.91, a precision of 0.83, and recall of 1.00. While a high F1-score often suggests a good balance between precision and recall, the confusion matrix in Figure \ref{fig:test-cm} provides critical context. It reveals that the model correctly classified all 18 positive instances (true positives) but misclassified the 5 negative instances as positive (false positives), resulting in zero true negatives being identified. This indicates a strong predictive bias toward the positive class, a point explored further in the Discussion.
+
+
 
 \section{Discussion}
 The model's ability to identify all cases involving medication intake might suggest that its performance is more than ideal. 
@@ -183,7 +193,8 @@ to generalize effectively to the specific requirements of the task. Last but not
 computationally heavy, making it unsuitable for deployment on the dispenser. This indicates that an alternative approach 
 should be considered--specifically, the implementation of a more lightweighted model.
 
-\section{Conclusion}
+\section{Conclusion \& Suggestions}
+\subsection{Conclusion}
 The goal of this project was to develop an AI model that could be embedded in a dispenser equipped with a camera to detect 
 whether patients have taken their medication. A pretrained model was employed, originally trained on images depicting 
 various activities, such as eating, walking, and smiling. Since the model was designed for image classification rather 
@@ -196,6 +207,13 @@ positive class, likely contributing to its tendency to classify every sample as 
 model may ultimately not be ideal for this task, suggesting that a different approach should be considered--especially 
 given that such a computationally heavy model cannot be embedded in the dispenser.
 
-\section*{References}
+\subsection{Suggestions}
+
+Based on the model performance and potential incapabilities, we present the following suggestions:
+
+\begin{itemize}
+    \item \textbf{Dataset enhancement:} The primary focus should be on expanding and diversifying the training dataset, which involves sourcing videos from new subjects and, critically, increasing the number of clear 'no medication intake' examples to address the significant class imbalance observed in the current dataset.
+    \item \textbf{Lightweight models for edge devices:} The utilized model is computationally heavy and thus unsuitable for on-device deployment. It is necessary investigate lightweight model architectures which are specifically designed for high performance on edge devices like the MedAssist dispenser. 
+\end{itemize}
 
 \end{document}
